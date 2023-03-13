@@ -26,7 +26,7 @@ TCP has built-in systems to check for errors and to guarantee data will be deliv
 ### UDP
 User Datagram Protocol (UDP) is a simplier, connectionless internet protocol in which error-checking and recovery services are not required
 
-![Img](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-I/tcp-and-udp/udp.png)
+![Img](./FILES/chapter-1.md/8abc5bb8.png)
 
 
 ### TCP vs UDP
@@ -44,7 +44,7 @@ User Datagram Protocol (UDP) is a simplier, connectionless internet protocol in 
 Domain Name System (DNS) is a hierachical and decentralized naming system used for translating human-readable domain names to IP addresses
 
 ### How DNS works
-![Img](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-I/domain-name-system/how-dns-works.png)
+![Img](./FILES/chapter-1.md/a513f0a1.png)
 
 DNS lookup involves the following 8 steps:
 1. A client types example.com into a web browser, the query travels to the internet and is received by a DNS resolver
@@ -58,7 +58,7 @@ DNS lookup involves the following 8 steps:
 
 ## Caching
 
-![Img](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-I/caching/caching.png)
+![Img](./FILES/chapter-1.md/3aa01cdd.png)
 
 
 ## Storage

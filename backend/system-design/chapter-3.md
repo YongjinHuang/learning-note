@@ -3,7 +3,7 @@
 ## N-tier architecture
 N-tier architecture divides an application into logical layers and physical layers. Layers are a way to separate responsibilities and manage dependencies. Each layer has a specific responsibility. A higher layer can use services in a lower layer, but not the other way around
 
-![N-tier architecture](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-III/n-tier-architecture/n-tier-architecture.png)
+![N-tier architecture](./FILES/chapter-3.md/c3e42102.png)
 
 
 An N-tier architecture can be of two types:
@@ -18,23 +18,30 @@ Let's look at some examples of N-Tier architecture:
 + **2-Tier architecture** : In this architecture, the presentation layer runs on the client and communicates with a data store. There's no business logic layer or immediate layer between client and server
 + **1-Tier architecture** : It's the simplest one as it's equivalent to running the application on a personal computer. All of the required components for an application to run are on a single application or server
 
+:::: row Pros and Cons
+::: col
 Here're some advantages of using N-tier architecture:
 + Can improve availability
 + Better security as layers can behave like a firewall
 + Separate tiers allow us to scale as needed
 + Improve maintainance as different people can manage different tiers
-
+:::
+::: col
 Below are some disadvantages of using N-tier architecture:
 + Increased complexity of the system as a whole
 + Increased network latency as the number of tiers increases
 + Expensive as every layer will have its own hardware cost
 + Difficult to manage network security
+:::
+::::
+
+
 
 
 ## Message Brokers
 A message broker is a software that enables applications, systems, and services to communicate with each other and exchange information. The message broker does this by translating messages between formal messaging protocols
 
-![message brokers](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-III/message-brokers/message-broker.png)
+![message brokers](./FILES/chapter-3.md/42d8c4b1.png)
 
 Message brokers offer two basic message distribution patterns or messaging styles:
 + Point-to-Point messaging : This's the distribution pattern utilized in message queues with a one-to-one relationship between the message's sender and receiver
@@ -52,8 +59,12 @@ If queues start to grow significantly, the queue size can become larger than mem
 ## Monoliths and Microservices
 A monoliths is a self-contained and indepedent application
 
-![monoliths](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-III/monoliths-microservices/monolith.png)
+![monoliths](./FILES/chapter-3.md/28c41935.png)
 
 A microservice architecture consists of a collection of small, autonomous services where each service is self-contained and should implement a single business capability within a bounded context
 
-![microservices](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-III/monoliths-microservices/microservices.png)
+![microservices](./FILES/chapter-3.md/34e74a01.png)
+
+
+## API Gateway
+![API Gateway](./FILES/chapter-3.md/748114fb.png)

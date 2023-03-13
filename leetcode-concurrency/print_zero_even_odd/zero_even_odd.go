@@ -59,7 +59,6 @@ func (z *ZeroEvenOdd) Even(printNumber func(int)) {
 		printNumber(i)
 		z.sz.Release()
 	}
-
 }
 
 func (z *ZeroEvenOdd) Odd(printNumber func(int)) {

@@ -10,7 +10,7 @@ func TestFive(t *testing.T) {
 	printNumber := func(n int) {
 		fmt.Print(n)
 	}
-	for i := 2; i <= 9; i++ {
+	for i := 1; i <= 9; i++ {
 		fmt.Println("i", i)
 		zeroEvenOdd := NewZeroEvenOdd(i)
 		var wg sync.WaitGroup
@@ -31,6 +31,7 @@ func TestFive(t *testing.T) {
 			wg.Done()
 		}()
 		wg.Wait()
+		fmt.Println()
 	}
 
 }

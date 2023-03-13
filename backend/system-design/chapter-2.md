@@ -84,7 +84,7 @@ The master serves reads and writes, replicating writes to one or more slaves, wh
 ### Master-Master Replication
 Both masters serve reads/writes and coordinate with each other. If either master goes down, the system can continue to operate with both reads and writes
 
-![Img](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-II/database-replication/master-master-replication.png)
+![Img](./FILES/chapter-2.md/45816462.png)
 
 #### Advantages
 + Applications can read from both masters
@@ -119,7 +119,7 @@ BASE properties are much looser than ACID properties
 ## CAP Theorem
 CAP theorem states that a distributed system can deliver only two of the three desired characteristics: Consistency, Availability, and Partition tolerance(CAP)
 
-![CAP](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-II/cap-theorem/cap-theorem.png)
+![CAP](./FILES/chapter-2.md/3ec3f2bc.png)
 
 + **Consistency** : Consisitency means that all clients see the same data at the same time, no matter which node they connect to. For this to happen, whenever data is written to one node, it must be instantly forwarded or replicated across all the nodes in the system before the write is deemed "successfully"
 + **Availability** : Availability means that any client making a request for data gets a response, even if one or more nodes are down
@@ -135,7 +135,7 @@ The CAP theorem states that in the case of network partitioning(P) in a distribu
 
 PACELC extends the CAP theorem by introducing latency(L) as an additional attribute of a distributed system. The theorem states that else(E), even when the system is running normally in the absence of partitions, one has to choose between latency(L) and consistency(C)
 
-![PACELC](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-II/pacelc-theorem/pacelc-theorem.png)
+![PACELC](./FILES/chapter-2.md/0b903685.png)
 
 ## Transactions
 A transaction is a series of database operations that are considered to be a single unit of work. The operations in a transaction either all succeed, or they all fail
@@ -144,7 +144,7 @@ A transaction is a series of database operations that are considered to be a sin
 
 A transaction in a database can be in one of the following states
 
-![transaction-state](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-II/transactions/transaction-states.png)
+![transaction-state](./FILES/chapter-2.md/fde50109.png)
 
 + **Active** : The transaction is being executed. This's the initial state of every transaction
 + **Partially Committed** : When a transaction executes its final operation, it's said to be in partially committed state

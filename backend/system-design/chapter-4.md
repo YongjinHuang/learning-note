@@ -20,7 +20,7 @@ Let's discuss circuit breaker states:
 ## Rate Limiting
 Rate limiting refers to preventing the frequency of an operation from exceeding a defined limit
 
-![Rate Limiting](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-IV/rate-limiting/rate-limiting.png)
+![Rate Limiting](./FILES/chapter-4.md/d453ad25.png)
 
 Why do we need rate limiting? Rate limiting is a very important part of any large-scale system and it can be used to accomplish the following:
 + Avoid resource starvation as a result of Denial of Service(DoS) attacks
@@ -30,11 +30,11 @@ Why do we need rate limiting? Rate limiting is a very important part of any larg
 
 There're various algorithms for API rate limiting, each with its advantages and disadvantages
 
-+ **Leaky Bucket** : Leaky Bucket is an algorithm that provides a simple, intuitive approach to rate limiting via a queue ![leaky bucket](https://image-static.segmentfault.com/312/532/3125325285-5b6e490397691_fix732)
++ **Leaky Bucket** : Leaky Bucket is an algorithm that provides a simple, intuitive approach to rate limiting via a queue ![leaky bucket](./FILES/chapter-4.md/3a3bdf50.png)
   + When registering a request, the system appends it to the end of queue
   + Processing for the first item on the queue occurs at a regular interval or first-in, first-out
   + If the queue is full, then additional requests are discarded(or leaked)
-+ **Token Bucket** : When a request comes in, a token from the bucket must be taken and processed. The request will be refused if no token is available in the bucket, and the requester will have to try again later. As a result, the token bucket gets refreshed after a certain time period. ![token bucket](https://image-static.segmentfault.com/417/964/4179645397-5b6e4903ec371_fix732)
++ **Token Bucket** : When a request comes in, a token from the bucket must be taken and processed. The request will be refused if no token is available in the bucket, and the requester will have to try again later. As a result, the token bucket gets refreshed after a certain time period. ![token bucket](./FILES/chapter-4.md/6d3fbdc6.png)
 + **Fixed Window**
 + **Sliding Log**
 + **Sliding Window**
@@ -49,8 +49,8 @@ Service discovery is the detection of services within a computer network. Servic
 
 Why do we need service discovery? Modern microservices-based application typically run in virtualized or containerized environments where the number of instances of a service and their locations change dynamically. Consequently, we need a mechanism that enables the clients of service to make requests to a dynamically changing set of ephemeral service instances
 
-+ **Client-side discovery** : The client obtains the location of another service by querying a service registry which is responsible for managing and storing the network locations of all the service ![Client-side discovery](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-IV/service-discovery/client-side-service-discovery.png)
-+ **Server-side discovery** : Use an intermediate component such as a load balancer. The client makes a request to the service via a load balancer which then forwards the request to an available service instance ![Server-side discovery](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-IV/service-discovery/server-side-service-discovery.png)
++ **Client-side discovery** : The client obtains the location of another service by querying a service registry which is responsible for managing and storing the network locations of all the service ![Client-side discovery](./FILES/chapter-4.md/bef7d6e1.png)
++ **Server-side discovery** : Use an intermediate component such as a load balancer. The client makes a request to the service via a load balancer which then forwards the request to an available service instance ![Server-side discovery](./FILES/chapter-4.md/9c3e34b8.png)
 
 ## SLA SLO SLI
 + **SLA** : An SLA, or Service Level Agreement, is an agreement made between a company and its users of a given service

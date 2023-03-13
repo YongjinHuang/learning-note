@@ -1,16 +1,17 @@
-# chapter-5
 
-## URL Shortener
+# URL Shortener
 
 A URL shortener service creates an alias or a short URL for a long URL. Users are redirected to the original url when they visit thest short links
 
 For example, the following long URL can be changed to a shorter URL
+
 + [Long URL](https://karanpratapsingh.com/courses/system-design/url-shortener)
 + [Short URL](https://bit.ly/3I71d3o)
 
 Why do we need a URL shortener? URL shortener saves spaces when we are sharing URLs. Users're also less likely to mistype shorter URLs. Moreover, we can also optimize links across devices, this allows us to track individual links
 
-### Requirements
+## Requirements
+
 Our URL shortenering system should meet the following requirements
 
 + Requirements{.mindmap}
@@ -25,10 +26,12 @@ Our URL shortenering system should meet the following requirements
         + Prevent abuse of services
         + Record analytics and metrics for redirections
 
-### Estimation and Constraints
+## Estimation and Constraints
 
 > *Make sure to check any scale or traffic related assumptions with your interviewer*
-#### Traffic
+
+### Traffic
+
 This will be a read-heavy system, so let's assume a `100:1` read/write ratio with 100 million links generated per month
 
 For reads per month:
@@ -42,19 +45,22 @@ $$\frac{100 \text{ million}}{(30 \text{ days} * 24 \text { hours} * 3600 \text{ 
 And with a `100:1` read/write ratio, the number of redirections will be:
 $$100 * 40 \text{ URLs/second} = 4000 \text{ requests/second}$$
 
-#### Bandwidth
+### Bandwidth
+
 If we assume each request is of size 500 bytes then the total incoming data for write requests would be
 $$40 * 500 \text{ bytes} \approx 20 \text{ KB/second}$$
 Similarity, for the read requests, since we expect about 4K redirections, the total outgoing data would be:
 $$4000 \text{ URLs/second} * 500 bytes \approx 2 MB/second$$
 
-#### Storage
+### Storage
+
 For storage, we'll assume we store each link or record in our databases for 10 years. Since we expect around 100M new requests every month, the total number of records we will need to store would be:
 $$100 \text{ million} * 10 \text{ years} * 12 \text{ months} = 12 \text{ billion}$$
 Like earlier, if we assume each stored record will be approximately 500 bytes, we will need around 6TB of storage:
 $$12 \text{ billion}*500\text{ bytes} \approx 6TB$$
 
-#### Cache
+### Cache
+
 For caching, we will follow the classic 80/20 rule: **80% of the requests are for 20% of the data**. Since we get around 4K read or redirection requests each second, this translates into 350M requests per day
 $$4000 \text{ URLs/second} * 24 \text { hours} * 3600 \text{ seconds} \approx 350 \text{ million requests/day}$$
 Hence, we will need around 35GB of memory per day
@@ -71,19 +77,20 @@ Here's our high-level estimates
 | Storage(10 years) | 6TB |
 | Memory(Caching) | ~35 GB/day |
 
-### Data model design
+## Data model design
+
 ![data model](./FILES/chapter-5.md/d63fd9e9.png)
 
-### API design
-
-
+## API design
 
 :::: group URL Shortening API design
 ::: group-item Create URL
 This API should create a new short URL in our system given an original URL
+
 ```go
 createURL(apiKey: string, originalURL: string, expiration: Date): string
 ```
+
 | Parameters/Return | Type | Description |
 | :--: | :--: | :--: |
 | API Key | string | API key provided by the user |
@@ -93,9 +100,11 @@ createURL(apiKey: string, originalURL: string, expiration: Date): string
 :::
 ::: group-item Get URL
 This API should retrieve the original URL from a given short URL
+
 ```go
 getURL(apiKey: string, shortURL: string): string
 ```
+
 | Parameters/Return | Type | Description |
 | :--: | :--: | :--: |
 | API Key | string | API key provided by the user |
@@ -104,9 +113,11 @@ getURL(apiKey: string, shortURL: string): string
 :::
 ::: group-item Delete URL
 This API should delete a given shortURL from our system
+
 ```go
 deleteURL(apiKey: string, shortURL: string): bool
 ```
+
 | Parameters/Return | Type | Description |
 | :--: | :--: | :--: |
 | API Key | string | API key provided by the user |
@@ -119,19 +130,21 @@ deleteURL(apiKey: string, shortURL: string): bool
 As you must've noticed, we're using an API key to prevent abuse of our services. Using the API key we can limit the users to a certain number of requests per second or minute. This's quite a standard practice for developer APIs and should cover our extended requirements
 :::
 
+## High-level design
 
-### High-level design
+### Caching
 
-#### Caching
 We can use Redis or Memcached servers alongside our API server
 
 For more details, refer to [caching](#Cache)
 
-#### Desgin
+### Desgin
+
 ![system-design-draft](./FILES/chapter-5.md/0de42359.png)
 
 :::: group How it works
 ::: group-item Creating a new URL
+
 1. When a user creates a new URL, our API server requests a new unique key from the Key Generation Service(KGS)
 1. Key Generation Service provides a unique key to the API server and marks the key as used
 1. API server writes the new URL entry to the database and cache
@@ -145,13 +158,12 @@ For more details, refer to [caching](#Cache)
 ::::
 
 
-### Detail design
+## Detail design
 
-#### Data Partitioning
+### Data Partitioning
 
+### Database cleanup
 
-
-#### Database cleanup
 If we do decide to remove expired entries, we can approach this in two different ways
 
 :::: group Database cleanup
@@ -163,7 +175,8 @@ For passive cleanup, we can remove the entry when a user tries to access an expi
 :::
 ::::
 
-#### Cache design
+### Cache design
+
 :::: group Cache
 ::: group-item Cache eviction policy
 Least Recently Used(LRU) can be a good policy for our system. In this policy, we discard the least recently used key first
@@ -173,78 +186,18 @@ Whenever there's a cache miss, our servers can hit the database directly and upd
 :::
 ::::
 
-#### Metrics and Analytics
+### Metrics and Analytics
+
 Recording analytics and metrics is one of our extended requirements. We can store and update metadata like visitor's country, platform, the number of views, etc alongside the URL in our database
 
-#### Security
+### Security
+
 For security, we can introduce private URLs and authorization. A separate table can be used to store user ids that have permission to access a specific URL. If a user does not have proper permissions, we can return an HTTP 401(Unauthorized) error
 
 We can also use an API Gateway as they can support capabilities like authorization, rate limiting, and load balancing out of the box
 
-
-### Identify and resolve bottlenecks
+## Identify and resolve bottlenecks
 
 ![Img](./FILES/chapter-5.md/6033aee7.png)
 
 
-## Twitter
-Twitter is a social media service where users can read or post short message (up to 280 characters) called tweets. It's available on the web and mobile platforms such as Android and IOS
-
-### Requirements
-Our system should meet the following requirements:
-
-+ Requirements{.mindmap}
-    + Functional requirements
-        + Should be able to post new tweets(can be text, image, video, etc)
-        + Should be able to follow other users
-        + Should have a newsfeed feature consisting of tweets from the people the user is following
-        + Should be able to search tweets
-    + Non-Functional requirements
-        + High availability with minimal latency
-        + The system should be scalable and efficient
-    + Extended requirements
-        + Metrics and analytics
-        + Retweet functionality
-        + Favorite tweets
-
-### Estimation and Constraints
-
-
-### API design
-
-:::: group URL Tweets API design
-::: group-item Post a tweet
-This API will allow the user to post a tweet on the platform
-```go
-postTweet(userID: UUID, content: string, mediaURL?: string): boolean
-```
-| Parameters/Return | Type | Description |
-| :--: | :--: | :--: |
-| User ID | UUID | ID of the user |
-| Content | string | Contents of the tweet |
-| Media URL | string | URL of the attached media(optional) |
-| Result | string | New shortened URL |
-:::
-::: group-item Get URL
-This API should retrieve the original URL from a given short URL
-```go
-getURL(apiKey: string, shortURL: string): string
-```
-| Parameters/Return | Type | Description |
-| :--: | :--: | :--: |
-| API Key | string | API key provided by the user |
-| Short URL | string | Short URL mapped to the original URL |
-| Original URL | string | Original URL to be retrieved |
-:::
-::: group-item Delete URL
-This API should delete a given shortURL from our system
-```go
-deleteURL(apiKey: string, shortURL: string): bool
-```
-| Parameters/Return | Type | Description |
-| :--: | :--: | :--: |
-| API Key | string | API key provided by the user |
-| Short URL | string | Short URL to be deleted |
-| Result | bool | Represents whether the operation was successful or not |
-:::
-::::

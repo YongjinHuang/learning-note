@@ -21,6 +21,7 @@ Let's look at some examples of N-Tier architecture:
 :::: row Pros and Cons
 ::: col
 Here're some advantages of using N-tier architecture:
+
 + Can improve availability
 + Better security as layers can behave like a firewall
 + Separate tiers allow us to scale as needed

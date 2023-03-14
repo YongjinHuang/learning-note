@@ -1,6 +1,7 @@
 package foobar
 
 import (
+	"fmt"
 	"sync"
 	"testing"
 )
@@ -18,4 +19,5 @@ func TestConcurrency(t *testing.T) {
 		wg.Done()
 	}()
 	wg.Wait()
+	fmt.Println()
 }

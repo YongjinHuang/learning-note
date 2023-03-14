@@ -1,5 +1,7 @@
 package buildingh2o
 
+import "sync"
+
 type Semaphore interface {
 	Acquire()
 	Release()
@@ -28,12 +30,14 @@ func newSemaphore(n int) Semaphore {
 type H2O struct {
 	hsema Semaphore
 	osema Semaphore
+	lo    *sync.Mutex
 }
 
 func NewH2O() *H2O {
 	return &H2O{
 		hsema: newSemaphore(2),
 		osema: newSemaphore(0),
+		lo:    &sync.Mutex{},
 	}
 }
 
@@ -44,11 +48,11 @@ func (h2o *H2O) Hydrogen(h func()) {
 }
 
 func (h2o *H2O) Oxygen(o func()) {
+	h2o.lo.Lock()
 	h2o.osema.Acquire()
 	h2o.osema.Acquire()
-	// h2o.osema.Acquire(2)
+	h2o.lo.Unlock()
 	o()
-	// h2o.hsema.Release(2)
 	h2o.hsema.Release()
 	h2o.hsema.Release()
 }

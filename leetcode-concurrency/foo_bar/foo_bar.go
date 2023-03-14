@@ -52,7 +52,7 @@ func (fb *FooBar) Foo() {
 func (fb *FooBar) Bar() {
 	for i := 0; i < fb.N; i++ {
 		fb.Cb.Acquire()
-		fmt.Print("bar\n")
+		fmt.Print("bar")
 		fb.Cf.Release()
 	}
 }

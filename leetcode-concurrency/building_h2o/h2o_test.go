@@ -7,7 +7,7 @@ import (
 )
 
 func TestH2o(t *testing.T) {
-	water := "OOHHHH"
+	water := "OOHHHHOOHHHHOOHHHHOOHHHHOOHHHHOOHHHHOOHHHHOOHHHH"
 	n := len(water)
 	var wg sync.WaitGroup
 	h2o := NewH2O()
